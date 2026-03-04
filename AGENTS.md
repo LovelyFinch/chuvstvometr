@@ -6,7 +6,7 @@ This file provides guidance to agents when working with code in this repository.
 
 **Чувствометр (Chuvstvometr)** — шуточное веб-приложение с двумя модулями:
 - **frontend/** — статический HTML/CSS/JS сайт (деплой на GitHub Pages)
-- **backend/** — Node.js/TypeScript сервер с Express + WebSocket (деплой на VPS)
+- **backend/** — Node.js/TypeScript сервер с Express + WebSocket + Telegram-бот (деплой на VPS)
 
 ## Architecture & Plans
 
@@ -16,6 +16,7 @@ This file provides guidance to agents when working with code in this repository.
 - `plans/frontend-spec.md` — спецификация фронтенда (SVG-спидометр)
 - `plans/deployment.md` — план деплоя (GitHub Pages + VPS)
 - `plans/project-structure.md` — структура файлов и конфигурации
+- `plans/telegram-bot.md` — план и детали реализации Telegram-бота
 
 ## Tech Stack
 
@@ -24,6 +25,7 @@ This file provides guidance to agents when working with code in this repository.
 | Frontend | HTML5, CSS3, Vanilla JavaScript (no frameworks) |
 | Backend | Node.js, TypeScript, Express, ws (WebSocket) |
 | Storage | JSON file (single state parameter) |
+| Telegram Bot | node-telegram-bot-api (polling mode, built into backend) |
 | Deploy (frontend) | GitHub Pages |
 | Deploy (backend) | VPS with PM2 + Nginx |
 
@@ -78,3 +80,7 @@ npx serve .          # Or: python -m http.server 8080
 - WebSocket path is `/ws`, REST API paths start with `/api/`
 - State file `backend/data/state.json` must exist before first run
 - Level values are integers 1-7 inclusive
+- Telegram bot is optional: if `TELEGRAM_BOT_TOKEN` is not set, the bot is silently skipped
+- Telegram bot uses long polling mode — no webhook or extra port needed
+- Allowed Telegram users are configured via `TELEGRAM_ALLOWED_USERS` (comma-separated user IDs)
+- Telegram bot directly calls `writeState()` and `broadcastUpdate()` — no HTTP round-trip

@@ -32,6 +32,11 @@ export interface WebSocketMessage {
   };
 }
 
+export interface TelegramConfig {
+  botToken: string;
+  allowedUsers: number[];
+}
+
 export interface AppConfig {
   port: number;
   apiKey: string;
@@ -39,4 +44,5 @@ export interface AppConfig {
   stateFile: string;
   logLevel: string;
   nodeEnv: string;
+  telegram: TelegramConfig | null;
 }

@@ -5,6 +5,7 @@ import { config, log } from './config';
 import { corsMiddleware } from './middleware/cors';
 import { levelRouter } from './routes/level';
 import { initWebSocketServer } from './services/websocket';
+import { initTelegramBot, stopTelegramBot } from './services/telegram';
 
 const app = express();
 
@@ -26,17 +27,22 @@ const server = createServer(app);
 // Initialize WebSocket server
 initWebSocketServer(server);
 
+// Initialize Telegram bot (optional — only if token is configured)
+initTelegramBot();
+
 // Start server
 server.listen(config.port, () => {
   log('info', `Chuvstvometr backend started on port ${config.port}`);
   log('info', `Environment: ${config.nodeEnv}`);
   log('info', `CORS origins: ${config.corsOrigins.join(', ')}`);
   log('info', `State file: ${config.stateFile}`);
+  log('info', `Telegram bot: ${config.telegram ? 'enabled' : 'disabled'}`);
 });
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
   log('info', 'SIGTERM received, shutting down gracefully');
+  stopTelegramBot();
   server.close(() => {
     log('info', 'Server closed');
     process.exit(0);
@@ -45,6 +51,7 @@ process.on('SIGTERM', () => {
 
 process.on('SIGINT', () => {
   log('info', 'SIGINT received, shutting down gracefully');
+  stopTelegramBot();
   server.close(() => {
     log('info', 'Server closed');
     process.exit(0);
