@@ -4,7 +4,7 @@ import { LevelInfo } from './types/index';
 export const LEVELS: LevelInfo[] = [
   { level: 1, color: 'серый',       hex: '#9E9E9E' },
   { level: 2, color: 'белый',       hex: '#F5F5F5' },
-  { level: 3, color: 'ж��лтый',     hex: '#FFEB3B' },
+  { level: 3, color: 'жёлтый',     hex: '#FFEB3B' },
   { level: 4, color: 'оранжевый',  hex: '#FF9800' },
   { level: 5, color: 'красный',    hex: '#F44336' },
   { level: 6, color: 'малиновый',  hex: '#E91E63' },
