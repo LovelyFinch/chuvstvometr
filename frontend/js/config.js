@@ -4,10 +4,10 @@
  */
 const CONFIG = {
   // WebSocket URL бэкенда (ws:// для HTTP, wss:// для HTTPS)
-  WS_URL: 'ws://64.188.89.59:45027/ws',
+  WS_URL: 'wss://chuvstva.space:45027/ws',
 
   // REST API URL бэкенда
-  API_URL: 'http://64.188.89.59:45027',
+  API_URL: 'https://chuvstva.space:45027',
 
   // Интервал polling в мс (fallback при недоступности WebSocket)
   POLLING_INTERVAL: 10000,
