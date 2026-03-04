@@ -4,13 +4,13 @@ import { config, log } from '../config';
 
 export const corsMiddleware = cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (e.g., curl, Postman, same-origin)
-    if (!origin) {
+    // Allow requests with no origin (e.g., curl, Postman, same-origin) in development mode
+    if (config.nodeEnv === 'development' && !origin ) {
       callback(null, true);
       return;
     }
 
-    if (config.corsOrigins.includes(origin)) {
+    if (origin && config.corsOrigins.includes(origin)) {
       callback(null, true);
     } else {
       log('warn', `CORS blocked request from origin: ${origin}`);
