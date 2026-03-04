@@ -11,6 +11,7 @@ class GaugeRenderer {
     this.container = document.getElementById(containerId);
     this.svg = null;
     this.needle = null;
+    this.centerCircle = null;
     this.currentLevel = 1;
 
     // SVG dimensions
@@ -60,26 +61,21 @@ class GaugeRenderer {
       }
     });
 
-    // Draw level numbers on sectors
-    CONFIG.LEVELS.forEach((levelInfo, index) => {
-      const midAngle = this.startAngle - (index + 0.5) * this.sectorAngle;
-      const label = this._createSectorLabel(midAngle, levelInfo.level);
-      this.svg.appendChild(label);
-    });
-
-    // Draw needle
+    // Draw needle (hidden by default until data is received)
     this.needle = this._createNeedle();
+    this.needle.style.display = 'none';
     this.svg.appendChild(this.needle);
 
-    // Draw center circle (needle pivot)
-    const centerCircle = document.createElementNS(svgNS, 'circle');
-    centerCircle.setAttribute('cx', String(this.cx));
-    centerCircle.setAttribute('cy', String(this.cy));
-    centerCircle.setAttribute('r', '12');
-    centerCircle.setAttribute('fill', '#ffffff');
-    centerCircle.setAttribute('stroke', '#333');
-    centerCircle.setAttribute('stroke-width', '2');
-    this.svg.appendChild(centerCircle);
+    // Draw center circle (needle pivot, hidden by default)
+    this.centerCircle = document.createElementNS(svgNS, 'circle');
+    this.centerCircle.setAttribute('cx', String(this.cx));
+    this.centerCircle.setAttribute('cy', String(this.cy));
+    this.centerCircle.setAttribute('r', '12');
+    this.centerCircle.setAttribute('fill', '#ffffff');
+    this.centerCircle.setAttribute('stroke', '#333');
+    this.centerCircle.setAttribute('stroke-width', '2');
+    this.centerCircle.style.display = 'none';
+    this.svg.appendChild(this.centerCircle);
 
     this.container.appendChild(this.svg);
 
@@ -98,6 +94,22 @@ class GaugeRenderer {
     }
     this.currentLevel = level;
     this._updateNeedle(level, true);
+  }
+
+  /**
+   * Показывает стрелку и центральный кружок.
+   */
+  showNeedle() {
+    if (this.needle) this.needle.style.display = '';
+    if (this.centerCircle) this.centerCircle.style.display = '';
+  }
+
+  /**
+   * Скрывает стрелку и центральный кружок.
+   */
+  hideNeedle() {
+    if (this.needle) this.needle.style.display = 'none';
+    if (this.centerCircle) this.centerCircle.style.display = 'none';
   }
 
   /**
@@ -213,33 +225,6 @@ class GaugeRenderer {
     line.setAttribute('stroke-width', '2');
 
     return line;
-  }
-
-  /**
-   * Создаёт текстовую метку номера уровня на секторе.
-   * @param {number} angle - угол середины сектора (градусы)
-   * @param {number} level - номер уровня
-   * @returns {SVGTextElement}
-   */
-  _createSectorLabel(angle, level) {
-    const svgNS = 'http://www.w3.org/2000/svg';
-    const text = document.createElementNS(svgNS, 'text');
-
-    const labelR = (this.outerR + this.innerR) / 2; // middle of arc
-    const rad = (angle * Math.PI) / 180;
-    const x = this.cx + labelR * Math.cos(rad);
-    const y = this.cy - labelR * Math.sin(rad);
-
-    text.setAttribute('x', String(x));
-    text.setAttribute('y', String(y + 5)); // +5 for vertical centering
-    text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('font-size', '16');
-    text.setAttribute('font-weight', 'bold');
-    text.setAttribute('fill', level === 2 ? '#333333' : '#ffffff');
-    text.setAttribute('font-family', 'Arial, sans-serif');
-    text.textContent = String(level);
-
-    return text;
   }
 
   /**

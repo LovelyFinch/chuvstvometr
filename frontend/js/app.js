@@ -29,6 +29,11 @@ function updateConnectionStatus(status) {
   if (statusText) {
     statusText.textContent = config.text;
   }
+
+  // Hide needle when connection is lost
+  if (status === 'disconnected' || status === 'error') {
+    gauge.hideNeedle();
+  }
 }
 
 /**
@@ -43,6 +48,8 @@ function handleLevelUpdate(data) {
 
   console.log(`[App] Level update: ${data.level} (${data.color})`);
 
+  // Show needle when data is received from server
+  gauge.showNeedle();
   gauge.setLevel(data.level);
   gauge.updateLabel(data.color, data.hex);
 }
