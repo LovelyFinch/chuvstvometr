@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чувствометр</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">🔥 Чувствометр 🔥</h1>
+      <p class="subtitle">Измеритель уровня чувств</p>
+    </header>
+
+    <main class="main">
+      <div id="gauge-container" class="gauge-wrapper">
+        <!-- SVG спидометр генерируется через JavaScript -->
+        <div class="gauge-loading">Загрузка...</div>
+      </div>
+
+      <div class="level-info">
+        <span id="level-text" class="level-text">Загрузка...</span>
+      </div>
+
+      <div class="level-scale">
+        <span class="scale-label scale-min">1</span>
+        <span class="scale-label scale-max">7</span>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="connection-status">
+        <span id="status-dot" class="status-dot"></span>
+        <span id="status-text" class="status-text">Подключение...</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- JavaScript модули (порядок важен!) -->
+  <script src="js/config.js"></script>
+  <script src="js/gauge.js"></script>
+  <script src="js/websocket.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+/* Чувствометр — стили */
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Nunito', Arial, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* ===== Layout ===== */
+.container {
+  width: 100%;
+  max-width: 600px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ===== Header ===== */
+.header {
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 20px rgba(255, 100, 50, 0.6);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ===== Main ===== */
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ===== Gauge ===== */
+.gauge-wrapper {
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.5));
+}
+
+.gauge-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.gauge-loading {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 40px;
+  font-size: 1.1rem;
+}
+
+/* Gauge sectors hover effect */
+.gauge-sector {
+  cursor: default;
+  transition: opacity 0.2s ease;
+}
+
+/* Needle animation */
+.gauge-needle {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+/* ===== Level Info ===== */
+.level-info {
+  text-align: center;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.level-text {
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: color 0.8s ease, text-shadow 0.8s ease;
+}
+
+/* ===== Scale Labels ===== */
+.level-scale {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.scale-label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+
+/* ===== Footer ===== */
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== Connection Status ===== */
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #FFC107;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.status-text {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px 12px;
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .gauge-wrapper {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 40px 24px;
+    gap: 32px;
+  }
+}
+
+/* ===== Animations ===== */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Pulse animation for connecting status */
+.status-dot[data-status="connecting"],
+.status-dot[data-status="reconnecting"] {
+  animation: pulse 1.5s ease-in-out infinite;
+}
