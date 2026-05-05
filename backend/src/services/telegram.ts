@@ -11,8 +11,8 @@ let bot: TelegramBot | null = null;
 
 // Emoji for each level to make buttons visually distinct
 const LEVEL_EMOJI: Record<number, string> = {
-  1: '⚪',
-  2: '🤍',
+  1: '🔵',
+  2: '💚',
   3: '💛',
   4: '🧡',
   5: '❤️',

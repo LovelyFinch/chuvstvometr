@@ -123,7 +123,7 @@ class GaugeRenderer {
       levelText.textContent = `Уровень чувств: ${color}`;
       levelText.style.color = hex;
       // Add text shadow for white color visibility
-      if (hex === '#F5F5F5') {
+      if (hex === '#4CAF50') {
         levelText.style.textShadow = '0 0 8px rgba(0,0,0,0.8)';
       } else {
         levelText.style.textShadow = `0 0 12px ${hex}`;
@@ -169,7 +169,7 @@ class GaugeRenderer {
     // Update needle color to match current level
     const levelInfo = CONFIG.LEVELS[level - 1];
     if (levelInfo) {
-      const needleColor = levelInfo.hex === '#F5F5F5' ? '#cccccc' : levelInfo.hex;
+      const needleColor = levelInfo.hex === '#4CAF50' ? '#2E7D32' : levelInfo.hex;
       this.needle.setAttribute('stroke', needleColor);
     }
   }
@@ -239,7 +239,7 @@ class GaugeRenderer {
     needle.setAttribute('y1', String(this.cy));
     needle.setAttribute('x2', String(this.cx - this.needleLength)); // initial: pointing left (level 1)
     needle.setAttribute('y2', String(this.cy));
-    needle.setAttribute('stroke', '#9E9E9E');
+    needle.setAttribute('stroke', '#2196F3');
     needle.setAttribute('stroke-width', '4');
     needle.setAttribute('stroke-linecap', 'round');
     needle.classList.add('gauge-needle');
